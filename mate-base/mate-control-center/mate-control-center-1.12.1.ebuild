@@ -27,12 +27,11 @@ RDEPEND="app-text/rarian:0
 	!gtk3? ( >=dev-libs/libunique-1:1
 			x11-libs/gdk-pixbuf:2
 			>=x11-libs/gtk+-2.24:2
-			media-libs/libcanberra[gtk]
 			)
 	gtk3? ( dev-libs/libunique:3
 			x11-libs/gtk+:3
-			media-libs/libcanberra[gtk]
 			)
+	media-libs/libcanberra[gtk3?]
 	dev-libs/libxml2:2
 	>=gnome-base/dconf-0.13.4:0
 	>=gnome-base/librsvg-2.0:2
