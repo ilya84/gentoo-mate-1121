@@ -25,7 +25,7 @@ RDEPEND="
 	dev-libs/atk:0
 	>=dev-libs/glib-2.32.10:2
 	!>=mate-extra/mate-dialogs-1.6:0
-	media-libs/libcanberra:0[gtk?]
+	media-libs/libcanberra:0[gtk3?]
 	!gtk3? ( x11-libs/gdk-pixbuf:2
 	         >=x11-libs/gtk+-2.24:2
 	)
