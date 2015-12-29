@@ -77,12 +77,19 @@ DEPEND="${RDEPEND}
 	x11-proto/xproto:0
 	virtual/pkgconfig:*"
 
+src_prepare() {
+	use gtk3 && ewarn "GTK3 version of this package has known bugs: " && \
+		ewarn "https://github.com/mate-desktop/mate-control-center/issues/137"
+	use gtk3 && epatch "${FILESDIR}/01.patch"
+	use gtk3 && epatch "${FILESDIR}/02.patch"
+}
+
 src_configure() {
-	local use_gtk3
-	use gtk3 && use_gtk3="${use_gtk3} --with-gtk=3.0"
-	use !gtk3 && use_gtk3="${use_gtk3} --with-gtk=2.0"
+	local use_gtk
+	use gtk3 && use_gtk="${use_gtk} --with-gtk=3.0"
+	use !gtk3 && use_gtk="${use_gtk} --with-gtk=2.0"
 	gnome2_src_configure \
-	${use_gtk3} \
+	${use_gtk} \
 		--disable-update-mimedb \
 		--disable-appindicator
 }

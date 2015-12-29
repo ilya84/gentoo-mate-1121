@@ -1,0 +1,49 @@
+From 3d4c37db99bedcdb0db10b9dccdc37aab4fe3863 Mon Sep 17 00:00:00 2001
+From: Denis Gorodnichev <denis.gorodnichev@gmail.com>
+Date: Wed, 23 Sep 2015 16:10:11 +0300
+Subject: [PATCH] wait for "draw" event
+
+---
+ capplets/common/theme-thumbnail.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/capplets/common/theme-thumbnail.c b/capplets/common/theme-thumbnail.c
+index abeb416..22cdbfc 100644
+--- a/capplets/common/theme-thumbnail.c
++++ b/capplets/common/theme-thumbnail.c
+@@ -303,6 +303,11 @@ create_meta_theme_pixbuf (ThemeThumbnailData *theme_thumbnail_data)
+   gtk_widget_size_request (window, &requisition);
+ #endif
+ 
++  gtk_widget_queue_draw (window);
++
++  while (gtk_events_pending ())
++   gtk_main_iteration ();
++
+   pixbuf = gtk_offscreen_window_get_pixbuf (GTK_OFFSCREEN_WINDOW(window));
+ 
+   gtk_widget_get_allocation (vbox, &vbox_allocation);
+@@ -395,6 +400,11 @@ create_gtk_theme_pixbuf (ThemeThumbnailData *theme_thumbnail_data)
+ 
+   gtk_window_get_size (GTK_WINDOW (window), &width, &height);
+ 
++  gtk_widget_queue_draw (window);
++
++  while (gtk_events_pending ())
++   gtk_main_iteration ();
++
+   pixbuf = gtk_offscreen_window_get_pixbuf (GTK_OFFSCREEN_WINDOW(window));
+ 
+   retval = gdk_pixbuf_scale_simple (pixbuf,
+@@ -468,6 +478,11 @@ create_marco_theme_pixbuf (ThemeThumbnailData *theme_thumbnail_data)
+   gtk_widget_size_request (window, &requisition);
+ #endif
+ 
++  gtk_widget_queue_draw (window);
++
++  while (gtk_events_pending ())
++   gtk_main_iteration ();
++
+   pixbuf = gtk_offscreen_window_get_pixbuf (GTK_OFFSCREEN_WINDOW(window));
+ 
+   region = meta_preview_get_clip_region (META_PREVIEW (preview),
